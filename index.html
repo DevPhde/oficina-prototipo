@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ============ CONFIGURAÇÕES RÁPIDAS (edite aqui) ============ -->
 
  <script>
     window.SITE = {
@@ -29,8 +28,8 @@
       --card:#151b22;
       --muted:#9aa4b2;
       --text:#e6edf3;
-      --brand:#35c08a;        /* destaque sutil esverdeado */
-      --accent:#6bd4ff;       /* segundo destaque */
+      --brand:#35c08a;        
+      --accent:#6bd4ff;       
       --line:#202632;
       --radius:16px;
       --shadow:0 10px 30px rgba(0,0,0,.35);
@@ -38,7 +37,7 @@
               radial-gradient(1200px 600px at 120% 10%, #00324a50, transparent 60%);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%; width:100%; overflow-x:hidden}
     body{
       margin:0; font:14.5px/1.6 Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text); background:var(--bg); overflow-x:hidden;
@@ -49,11 +48,12 @@
     .container{max-width:1200px; margin:0 auto; padding:0 20px}
     .grid{display:grid; gap:22px}
     .btn{
-      display:inline-flex; align-items:center; gap:10px;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+      max-width:100%;
       padding:14px 18px; border-radius:999px; border:1px solid #2a313c;
       background:linear-gradient(180deg,#1a2028,#141820);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--shadow);
-      color:#e9f7f0; font-weight:600; letter-spacing:.2px;
+      color:#e9f7f0; font-weight:600; letter-spacing:.2px; text-align:center;
       transition: transform .25s ease, background .25s ease, border-color .25s ease;
       will-change: transform;
     }
@@ -61,13 +61,14 @@
     .btn.brand{background:linear-gradient(180deg,#2bb67d,#179866); border-color:#1d815a; color:#06120c}
     .btn.brand:hover{transform:translateY(-2px)}
     .chip{
-      display:inline-flex; align-items:center; padding:8px 12px; border-radius:999px;
+      display:inline-flex; align-items:center; justify-content:center; padding:8px 12px; border-radius:999px;
       border:1px solid #26303b; background:#0f141a; color:#cfe4ff; font-weight:600; font-size:12.5px;
+      max-width:100%; text-align:center; flex-wrap:wrap;
     }
     .muted{color:var(--muted)}
     .section{position:relative; padding:86px 0; background:transparent}
     .section.dark{background: linear-gradient(180deg,#0a0d11,#0a0d11) var(--grad)}
-    .section-title{font-size:36px; line-height:1.15; margin:0 0 14px; letter-spacing:.2px}
+    .section-title{font-size:clamp(28px,4vw,36px); line-height:1.15; margin:0 0 14px; letter-spacing:.2px}
     .section-sub{margin:0 0 26px; color:var(--muted)}
     .card{
       background:linear-gradient(180deg,#161b22,#12171e); border:1px solid var(--line);
@@ -80,10 +81,27 @@
       background:linear-gradient(180deg, rgba(14,18,23,.9), rgba(14,18,23,.6));
       transition: background .3s ease, border-color .3s ease;
     }
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; flex-wrap:wrap}
+    .nav-links{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+    .menu-toggle{
+      display:none; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:999px; border:1px solid #2a313c;
+      background:linear-gradient(180deg,#1a2028,#141820); color:#e6edf3;
+      font-weight:600; letter-spacing:.2px;
+    }
+    .menu-toggle__icon{
+      width:18px; height:2px; background:#e6edf3; border-radius:999px;
+      position:relative; display:block;
+    }
+    .menu-toggle__icon::before,
+    .menu-toggle__icon::after{
+      content:""; position:absolute; left:0; width:100%; height:2px; background:#e6edf3; border-radius:999px;
+    }
+    .menu-toggle__icon::before{top:-6px}
+    .menu-toggle__icon::after{top:6px}
     .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
     .brand i{width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,var(--brand),var(--accent)); display:inline-block}
-    .nav a.link{padding:10px 12px; opacity:.85}
+    .nav a.link{display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; opacity:.85}
     .nav a.link:hover{opacity:1}
     .hero{
       min-height:92vh; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden;
@@ -95,19 +113,22 @@
         url("https://images.unsplash.com/photo-1542367597-8849ebd0dfc6?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
       will-change: transform; transform: translateZ(0);
     }
-    .hero .content{position:relative; z-index:2; padding:24px}
+    .hero .content{position:relative; z-index:2; padding:24px; max-width:760px; margin:0 auto}
+    .hero-title{font-size:clamp(32px,6vw,48px); margin-bottom:12px}
+    .hero-actions{margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .hero-actions .btn{min-width:220px}
     .kpis{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:20px 0 0}
     .kpis .chip{background:#0c1218; border-color:#22303d}
 
     /* Serviços */
-    .services{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .services{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
     .service{padding:22px}
     .service h3{margin:12px 0 8px}
     .service p{margin:0; color:var(--muted)}
     .service svg{opacity:.85}
 
     /* Destaques */
-    .features{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .features{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
     .feature{display:flex; gap:12px; align-items:flex-start}
     .feature i{
       flex:0 0 14px; height:14px; margin-top:5px; border-radius:3px; background:linear-gradient(135deg,var(--brand),var(--accent));
@@ -136,9 +157,14 @@
     .cta .container{position:relative; z-index:2; padding:0 20px}
 
     /* Mapa/Local */
-    .location .map{
-      width:100%; height:360px; border:0; border-radius:var(--radius); filter:grayscale(.15) contrast(1.05) brightness(.95);
-      box-shadow:var(--shadow); border:1px solid var(--line)
+    .location-grid{
+      grid-template-columns:minmax(0,1fr) minmax(0,.85fr); gap:22px; align-items:stretch;
+    }
+    .location-grid iframe{
+      width:100%; height:auto; border:0; border-radius:var(--radius);
+      filter:grayscale(.15) contrast(1.05) brightness(.95);
+      box-shadow:var(--shadow); border:1px solid var(--line);
+      aspect-ratio:16 / 9; min-height:360px;
     }
 
     footer{
@@ -152,15 +178,38 @@
 
     /* Responsivo */
     @media (max-width: 1024px){
-      .services{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .features{grid-template-columns:repeat(2,minmax(0,1fr))}
       .about{grid-template-columns:1fr; gap:18px}
     }
+    @media (max-width: 900px){
+      .nav{flex-wrap:wrap}
+      .nav-links{width:100%; justify-content:flex-start}
+      .location-grid{grid-template-columns:1fr}
+      .location-grid iframe{min-height:320px}
+    }
+    @media (max-width: 720px){
+      .menu-toggle{display:inline-flex}
+      .nav{align-items:flex-start}
+      .nav-links{
+        width:100%; flex-direction:column; background:#0f141b;
+        border:1px solid #1e2531; border-radius:var(--radius);
+        padding:0; max-height:0; overflow:hidden; opacity:0; pointer-events:none;
+        transition:max-height .3s ease, opacity .3s ease;
+      }
+      .nav-links.open{
+        padding:14px; margin-top:10px; max-height:520px; opacity:1; pointer-events:auto;
+      }
+      .nav-links a{width:100%; justify-content:center}
+      .nav-links .btn{width:100%}
+    }
     @media (max-width: 640px){
-      .services{grid-template-columns:1fr}
-      .section{padding:70px 0}
-      .section-title{font-size:28px}
-      .hero{min-height:88vh}
+      .section{padding:60px 0}
+      .hero{min-height:78vh}
+      .hero-actions .btn{width:100%; min-width:0}
+    }
+    @media (max-width: 520px){
+      .services,
+      .features{grid-template-columns:1fr}
+      .kpis{justify-content:flex-start}
     }
 
     /* Acessibilidade: respeitar redução de movimento */
@@ -174,7 +223,11 @@
   <header>
     <div class="container nav">
       <div class="brand"><i></i><span id="brandTxt">Oficina prototipo</span></div>
-      <nav style="display:flex; gap:6px; align-items:center; flex-wrap:wrap">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="primaryNav">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+        Menu
+      </button>
+      <nav class="nav-links" id="primaryNav">
         <a class="link" href="#servicos">Serviços</a>
         <a class="link" href="#diferenciais">Diferenciais</a>
         <a class="link" href="#sobre">Sobre</a>
@@ -189,14 +242,14 @@
   <section class="hero section dark" aria-label="Visão geral">
     <div class="bg" data-parallax data-speed="0.25" aria-hidden="true"></div>
     <div class="container content">
-      <h1 class="section-title" style="font-size:44px; margin-bottom:10px">
+      <h1 class="section-title hero-title">
         Especialistas em <span style="background:linear-gradient(135deg,var(--brand),var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent">diagnóstico avançado</span> e transmissão automática
       </h1>
       <p class="section-sub" style="max-width:780px; margin:0 auto">
         Injeção eletrônica e direta, mecânica, motor, suspensão, híbridos e elétricos, além de reparo de módulos — com comunicação transparente e prazos ágeis.
       </p>
 
-      <div style="margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+      <div class="hero-actions">
         <a class="btn brand" id="zapBtnHero" target="_blank" rel="noopener">Atendimento imediato no WhatsApp</a>
         <a class="btn" id="mapsBtnHero" target="_blank" rel="noopener">Ver rota no mapa</a>
       </div>
@@ -332,8 +385,8 @@
     <div class="container">
       <h2 class="section-title reveal">Onde estamos</h2>
       <p class="section-sub reveal"><strong id="addrTxt">Rua das oficinas, 000 — bairro, Bairro das oficinas/XX</strong></p>
-      <div class="grid" style="grid-template-columns: 1.2fr .8fr; gap:22px">
-        <iframe src="https://www.google.com/maps/embed?pb=!4v1762708834038!6m8!1m7!1sg8s2ULR0xMqNJCiEyHE3hg!2m2!1d-22.95184988127421!2d-43.21008470654559!3f86.760578351327!4f-11.344304551281084!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="grid location-grid">
+        <iframe src="https://www.google.com/maps/embed?pb=!4v1762708834038!6m8!1m7!1sg8s2ULR0xMqNJCiEyHE3hg!2m2!1d-22.95184988127421!2d-43.21008470654559!3f86.760578351327!4f-11.344304551281084!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="card reveal" style="display:flex; flex-direction:column; gap:10px; justify-content:center">
           <div><span class="muted">Endereço</span><br><strong id="addrTxt2">Rua das oficinas, 000 — bairro, Bairro das oficinas/XX</strong></div>
           <div><span class="muted">WhatsApp</span><br><strong id="phoneTxt">(00) 99999-9999</strong></div>
@@ -368,6 +421,33 @@
     ["zapBtn","zapBtnHero","zapBtnServ","zapBtnAbout","zapBtnCta","zapBtnLocal"].forEach(id => setHref(id, SITE.whatsappHref));
     ["igBtn","igBtnAbout"].forEach(id => setHref(id, SITE.instagramHref));
     ["mapsBtn","mapsBtnHero"].forEach(id => setHref(id, SITE.mapsHref));
+
+    // ====== Menu responsivo mobile
+    (function(){
+      const nav = document.getElementById('primaryNav');
+      const toggle = document.getElementById('menuToggle');
+      if(!nav || !toggle) return;
+      const closeMenu = ()=>{
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      };
+      toggle.addEventListener('click', ()=>{
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+      });
+      nav.querySelectorAll('a').forEach(link=>{
+        link.addEventListener('click', ()=>{
+          if(window.matchMedia('(max-width: 720px)').matches){
+            closeMenu();
+          }
+        });
+      });
+      window.addEventListener('resize', ()=>{
+        if(window.innerWidth > 720){
+          closeMenu();
+        }
+      });
+    })();
 
     // ====== Efeito "reveal on view"
     const io = new IntersectionObserver((entries)=>{
