@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototipo Oficina — Oficina especializada</title>
+  <meta name="description" content="Oficina especializada em diagnóstico eletrônico, transmissão automática, híbridos e elétricos. Peças de alta qualidade e atendimento transparente." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ============ CONFIGURAÇÕES RÁPIDAS (edite aqui) ============ -->
+
+ <script>
+    window.SITE = {
+      brand: "Oficina prototipo",
+      whatsappHref: "https://wa.me/",
+      instagramHref: "https://www.instagram.com/",
+      mapsHref: "https://maps.app.goo.gl",
+      address: "Rua das oficinas, nº 000 Exemplo - EX",
+      phoneText: "(99) 99999-9999"
+    };
+  </script>
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --bg-elev:#11151a;
+      --card:#151b22;
+      --muted:#9aa4b2;
+      --text:#e6edf3;
+      --brand:#35c08a;        /* destaque sutil esverdeado */
+      --accent:#6bd4ff;       /* segundo destaque */
+      --line:#202632;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --grad: radial-gradient(1200px 600px at 10% -10%, #0b3a2a40, transparent 60%),
+              radial-gradient(1200px 600px at 120% 10%, #00324a50, transparent 60%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:14.5px/1.6 Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); background:var(--bg); overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:22px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:14px 18px; border-radius:999px; border:1px solid #2a313c;
+      background:linear-gradient(180deg,#1a2028,#141820);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--shadow);
+      color:#e9f7f0; font-weight:600; letter-spacing:.2px;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+      will-change: transform;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#3b4656; background:linear-gradient(180deg,#1e2530,#161b24)}
+    .btn.brand{background:linear-gradient(180deg,#2bb67d,#179866); border-color:#1d815a; color:#06120c}
+    .btn.brand:hover{transform:translateY(-2px)}
+    .chip{
+      display:inline-flex; align-items:center; padding:8px 12px; border-radius:999px;
+      border:1px solid #26303b; background:#0f141a; color:#cfe4ff; font-weight:600; font-size:12.5px;
+    }
+    .muted{color:var(--muted)}
+    .section{position:relative; padding:86px 0; background:transparent}
+    .section.dark{background: linear-gradient(180deg,#0a0d11,#0a0d11) var(--grad)}
+    .section-title{font-size:36px; line-height:1.15; margin:0 0 14px; letter-spacing:.2px}
+    .section-sub{margin:0 0 26px; color:var(--muted)}
+    .card{
+      background:linear-gradient(180deg,#161b22,#12171e); border:1px solid var(--line);
+      border-radius:var(--radius); box-shadow: var(--shadow); padding:22px;
+    }
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(120%) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      background:linear-gradient(180deg, rgba(14,18,23,.9), rgba(14,18,23,.6));
+      transition: background .3s ease, border-color .3s ease;
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .brand i{width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,var(--brand),var(--accent)); display:inline-block}
+    .nav a.link{padding:10px 12px; opacity:.85}
+    .nav a.link:hover{opacity:1}
+    .hero{
+      min-height:92vh; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden;
+      background:#0a0d11;
+    }
+    .hero .bg{
+      position:absolute; inset:-10px; background:
+        linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.75)),
+        url("https://images.unsplash.com/photo-1542367597-8849ebd0dfc6?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
+      will-change: transform; transform: translateZ(0);
+    }
+    .hero .content{position:relative; z-index:2; padding:24px}
+    .kpis{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:20px 0 0}
+    .kpis .chip{background:#0c1218; border-color:#22303d}
+
+    /* Serviços */
+    .services{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .service{padding:22px}
+    .service h3{margin:12px 0 8px}
+    .service p{margin:0; color:var(--muted)}
+    .service svg{opacity:.85}
+
+    /* Destaques */
+    .features{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .feature{display:flex; gap:12px; align-items:flex-start}
+    .feature i{
+      flex:0 0 14px; height:14px; margin-top:5px; border-radius:3px; background:linear-gradient(135deg,var(--brand),var(--accent));
+      box-shadow:0 0 0 3px #0f151b;
+    }
+
+    /* Sobre */
+    .about{grid-template-columns: 1.2fr .8fr}
+    .about .photo{
+      min-height:360px; border-radius:var(--radius);
+      background: 
+        linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.5)),
+        url("https://images.unsplash.com/photo-1515923162049-041f1b5fd0a6?q=80&w=1200&auto=format&fit=crop") center/cover no-repeat;
+      border:1px solid var(--line); box-shadow:var(--shadow)
+    }
+
+    /* CTA Parallax */
+    .cta{min-height:42vh; display:grid; place-items:center; text-align:center; overflow:hidden; padding:56px 0}
+    .cta .bg{
+      position:absolute; inset:-10px;
+      background:
+       linear-gradient(180deg,rgba(7,10,12,.3),rgba(7,10,12,.85)),
+       url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
+      will-change: transform;
+    }
+    .cta .container{position:relative; z-index:2; padding:0 20px}
+
+    /* Mapa/Local */
+    .location .map{
+      width:100%; height:360px; border:0; border-radius:var(--radius); filter:grayscale(.15) contrast(1.05) brightness(.95);
+      box-shadow:var(--shadow); border:1px solid var(--line)
+    }
+
+    footer{
+      padding:28px 0; color:#c7d0dc; border-top:1px solid var(--line);
+      background:linear-gradient(180deg,#0c1015,#0a0d11);
+    }
+
+    /* Animar ao aparecer */
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.in{opacity:1; transform:none}
+
+    /* Responsivo */
+    @media (max-width: 1024px){
+      .services{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .features{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .about{grid-template-columns:1fr; gap:18px}
+    }
+    @media (max-width: 640px){
+      .services{grid-template-columns:1fr}
+      .section{padding:70px 0}
+      .section-title{font-size:28px}
+      .hero{min-height:88vh}
+    }
+
+    /* Acessibilidade: respeitar redução de movimento */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; animation:none !important}
+    }
+  </style>
+</head>
+<body>
+  <!-- ======== Header ======== -->
+  <header>
+    <div class="container nav">
+      <div class="brand"><i></i><span id="brandTxt">Oficina prototipo</span></div>
+      <nav style="display:flex; gap:6px; align-items:center; flex-wrap:wrap">
+        <a class="link" href="#servicos">Serviços</a>
+        <a class="link" href="#diferenciais">Diferenciais</a>
+        <a class="link" href="#sobre">Sobre</a>
+        <a class="link" href="#local">Localização</a>
+        <a class="btn" id="igBtn" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn brand" id="zapBtn" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======== Hero (Parallax) ======== -->
+  <section class="hero section dark" aria-label="Visão geral">
+    <div class="bg" data-parallax data-speed="0.25" aria-hidden="true"></div>
+    <div class="container content">
+      <h1 class="section-title" style="font-size:44px; margin-bottom:10px">
+        Especialistas em <span style="background:linear-gradient(135deg,var(--brand),var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent">diagnóstico avançado</span> e transmissão automática
+      </h1>
+      <p class="section-sub" style="max-width:780px; margin:0 auto">
+        Injeção eletrônica e direta, mecânica, motor, suspensão, híbridos e elétricos, além de reparo de módulos — com comunicação transparente e prazos ágeis.
+      </p>
+
+      <div style="margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+        <a class="btn brand" id="zapBtnHero" target="_blank" rel="noopener">Atendimento imediato no WhatsApp</a>
+        <a class="btn" id="mapsBtnHero" target="_blank" rel="noopener">Ver rota no mapa</a>
+      </div>
+
+      <div class="kpis">
+        <span class="chip">Peugeot / Citroën</span>
+        <span class="chip">Hyundai / Kia</span>
+        <span class="chip">Volkswagen / Audi</span>
+        <span class="chip">BMW / Mercedes-Benz</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Serviços ======== -->
+  <section id="servicos" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Nossos serviços</h2>
+      <p class="section-sub reveal">Atendimento técnico com foco em precisão e performance.</p>
+
+      <div class="grid services">
+        <!-- Serviço -->
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M5 7l2 12h10l2-12" stroke="#a8ffde" stroke-width="1.5"/><circle cx="12" cy="13" r="3" stroke="#a8ffde" stroke-width="1.5"/></svg>
+          <h3>Diagnóstico eletrônico</h3>
+          <p>Varredura avançada, testes e laudos precisos para resolver a causa raiz — não só o sintoma.</p>
+        </article>
+
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 16h16M6 8h12l2 8H4l2-8z" stroke="#bfe7ff" stroke-width="1.5"/><path d="M8 8l1-3h6l1 3" stroke="#bfe7ff" stroke-width="1.5"/></svg>
+          <h3>Transmissão automática</h3>
+          <p>Diagnóstico, manutenção e reprogramações com equipamentos específicos.</p>
+        </article>
+
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M7 8h10M7 16h10" stroke="#ffd7a8" stroke-width="1.5"/><circle cx="12" cy="12" r="8" stroke="#ffd7a8" stroke-width="1.5"/></svg>
+          <h3>Híbridos e elétricos</h3>
+          <p>Procedimentos seguros e ferramentas adequadas para alta voltagem.</p>
+        </article>
+
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M6 12l2-6h8l2 6" stroke="#e0b3ff" stroke-width="1.5"/><path d="M7 18h10" stroke="#e0b3ff" stroke-width="1.5"/></svg>
+          <h3>Motor & injeção</h3>
+          <p>Injeção eletrônica/direta, correção de falhas, acerto fino e manutenção preventiva.</p>
+        </article>
+
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 17l3-6 4 3 4-6 5 9" stroke="#ffe7a8" stroke-width="1.5"/></svg>
+          <h3>Suspensão & freios</h3>
+          <p>Conforto, estabilidade e segurança com peças de alto padrão.</p>
+        </article>
+
+        <article class="card service reveal">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#a8f3ff" stroke-width="1.5"/><path d="M15 9l2 2-6 6H9v-2l6-6z" stroke="#a8f3ff" stroke-width="1.5"/></svg>
+          <h3>Reparo de módulos</h3>
+          <p>Recuperação técnica de ECUs/TCUs e componentes eletrônicos.</p>
+        </article>
+      </div>
+
+      <div style="margin-top:24px;" class="reveal">
+        <a class="btn brand" style="text-align: center;" id="zapBtnServ" target="_blank" rel="noopener">Tirar dúvidas no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Diferenciais ======== -->
+  <section id="diferenciais" class="section dark">
+    <div class="container">
+      <h2 class="section-title reveal">Por que a Oficina?</h2>
+      <p class="section-sub reveal">Compromisso com qualidade, transparência e prazo.</p>
+
+      <div class="grid features">
+        <div class="feature card reveal">
+          <i></i>
+          <div>
+            <h3>Equipe altamente capacitada</h3>
+            <p class="muted">Experiência comprovada em nacionais e importados.</p>
+          </div>
+        </div>
+        <div class="feature card reveal">
+          <i></i>
+          <div>
+            <h3>Comunicação clara</h3>
+            <p class="muted">Você entende o problema, o orçamento e cada etapa do serviço.</p>
+          </div>
+        </div>
+        <div class="feature card reveal">
+          <i></i>
+          <div>
+            <h3>Peças de alta qualidade</h3>
+            <p class="muted">Originais ou equivalentes premium, conforme necessidade.</p>
+          </div>
+        </div>
+        <div class="feature card reveal">
+          <i></i>
+          <div>
+            <h3>Entrega ágil</h3>
+            <p class="muted">Compromisso com prazos — sem surpresas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Sobre ======== -->
+  <section id="sobre" class="section">
+    <div class="container">
+      <div class="grid about">
+        <div class="reveal">
+          <h2 class="section-title">Sobre a Oficina</h2>
+          <p class="muted">Desde 0000, evoluímos para atender demandas complexas de diagnóstico eletrônico, transmissões automáticas, híbridos e elétricos — sempre com atendimento próximo e foco em resolver o que outros não resolvem.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px">
+            <a class="btn" id="igBtnAbout" target="_blank" rel="noopener">Ver Instagram</a>
+            <a class="btn brand" id="zapBtnAbout" target="_blank" rel="noopener">Falar agora</a>
+          </div>
+        </div>
+        <div class="photo reveal" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CTA Parallax ======== -->
+  <section class="cta section dark" aria-label="Agende já">
+    <div class="bg" data-parallax data-speed="0.18" aria-hidden="true"></div>
+    <div class="container">
+      <h2 class="section-title">Pronto para cuidar do seu carro?</h2>
+      <p class="section-sub">Atendimento imediato e diagnóstico assertivo.</p>
+      <a class="btn brand" id="zapBtnCta" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- ======== Localização ======== -->
+  <section id="local" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Onde estamos</h2>
+      <p class="section-sub reveal"><strong id="addrTxt">Rua das oficinas, 000 — bairro, Bairro das oficinas/XX</strong></p>
+      <div class="grid" style="grid-template-columns: 1.2fr .8fr; gap:22px">
+        <iframe src="https://www.google.com/maps/embed?pb=!4v1762708834038!6m8!1m7!1sg8s2ULR0xMqNJCiEyHE3hg!2m2!1d-22.95184988127421!2d-43.21008470654559!3f86.760578351327!4f-11.344304551281084!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="card reveal" style="display:flex; flex-direction:column; gap:10px; justify-content:center">
+          <div><span class="muted">Endereço</span><br><strong id="addrTxt2">Rua das oficinas, 000 — bairro, Bairro das oficinas/XX</strong></div>
+          <div><span class="muted">WhatsApp</span><br><strong id="phoneTxt">(00) 99999-9999</strong></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+            <a class="btn" id="mapsBtn" target="_blank" rel="noopener">Abrir no mapa</a>
+            <a class="btn brand" id="zapBtnLocal" target="_blank" rel="noopener">Enviar mensagem</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Rodapé ======== -->
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:10px"><span class="brand"><i></i><span id="brandTxt2">Oficina Prototipo</span></span></div>
+      <div class="muted">© <span id="year"></span> Oficina Prototipo — Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <script>
+    // ====== Inicialização das variáveis de interface
+    const $ = (sel)=>document.querySelector(sel);
+    $("#brandTxt").textContent = SITE.brand;
+    $("#brandTxt2").textContent = SITE.brand;
+    $("#addrTxt").textContent = SITE.address;
+    $("#addrTxt2").textContent = SITE.address;
+    $("#phoneTxt").textContent = SITE.phoneText;
+    $("#year").textContent = new Date().getFullYear();
+
+    const setHref = (id, href) => { const el = document.getElementById(id); if(el) el.href = href; };
+    ["zapBtn","zapBtnHero","zapBtnServ","zapBtnAbout","zapBtnCta","zapBtnLocal"].forEach(id => setHref(id, SITE.whatsappHref));
+    ["igBtn","igBtnAbout"].forEach(id => setHref(id, SITE.instagramHref));
+    ["mapsBtn","mapsBtnHero"].forEach(id => setHref(id, SITE.mapsHref));
+
+    // ====== Efeito "reveal on view"
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ====== Parallax suave (data-parallax data-speed)
+    (function(){
+      const layers = [...document.querySelectorAll('[data-parallax]')];
+      if (!layers.length) return;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      let ticking = false;
+      const updateLayers = ()=>{
+        const viewportCenter = (window.innerHeight || document.documentElement.clientHeight) / 2;
+        layers.forEach(layer=>{
+          const speed = parseFloat(layer.dataset.speed || '0.2');
+          const rect = layer.getBoundingClientRect();
+          const distanceFromCenter = (rect.top + rect.height / 2) - viewportCenter;
+          layer.style.transform = `translate3d(0, ${-distanceFromCenter * speed * 0.45}px, 0)`;
+        });
+        ticking = false;
+      };
+      const requestTick = ()=>{
+        if(!ticking){
+          ticking = true;
+          window.requestAnimationFrame(updateLayers);
+        }
+      };
+      window.addEventListener('scroll', requestTick, {passive:true});
+      window.addEventListener('resize', requestTick);
+      requestTick();
+    })();
+  </script>
+
+  <!-- ====== SEO LocalBusiness (opcional) ====== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AutoRepair",
+    "name":"Oficina Prototipo",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"Rua das oficinas, 000",
+      "addressLocality":"bairro",
+      "addressRegion":"XX",
+      "addressCountry":"BR"
+    },
+    "telephone":"+00 00 99999-9999",
+    "url":"https://google.com.br/"
+  }
+  </script>
+</body>
+</html>
